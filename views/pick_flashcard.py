@@ -72,8 +72,8 @@ class PickFlashcard:
         result = self.cursor.fetchone()  # Fetches the first row of the result
 
         if result:
-            flashcard_id = result[0]
-            print(f"Flashcard ID: {flashcard_id}")
+            variables.current_flashcard_id = result[0]
+            print(f"Flashcard ID: {variables.current_flashcard_id}")
         else:
             print("Flashcard not found or result is empty")
 

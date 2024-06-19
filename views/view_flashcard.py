@@ -16,6 +16,11 @@ class ViewFlashcard:
         BG = '#041995'
         FG = '#3450a1'
 
+        flashcard_id = variables.current_flashcard_id
+        # Next steps use flashcard id to display first questions
+        # Add check button that checks with correct_answer
+        # Make next button display next question until no questions left
+
 
         self.user_answer_input = TextField(label='Answer', width=400)
         
