@@ -39,7 +39,6 @@ class PickFlashcard:
             ]
         )
 
-
         pick_flashcard = Container(
             content=Column(
                 controls=[
@@ -66,10 +65,17 @@ class PickFlashcard:
         )
     
     def select_flashcard(self, name):
-        global selected_flashcard
-        selected_flashcard = name
-        print(selected_flashcard)
+        variables.selected_flashcard = name
+        print(variables.selected_flashcard)
         self.page.go("/view_flashcard")
+        self.cursor.execute("SELECT flashcard_id FROM flashcard WHERE flashcard_name = ?", (variables.selected_flashcard,))
+        result = self.cursor.fetchone()  # Fetches the first row of the result
+
+        if result:
+            flashcard_id = result[0]
+            print(f"Flashcard ID: {flashcard_id}")
+        else:
+            print("Flashcard not found or result is empty")
 
     def view(self):
         return self.container
