@@ -28,7 +28,7 @@ class PickFlashcard:
                     width=400,
                     bgcolor=BG,
                     border_radius=25,
-                    on_click=lambda _: page.go("/view_flashcard"),
+                    on_click=lambda _, name=flashcard[0]: self.select_flashcard(name),
                     content=Row(
                         alignment='center',
                         controls=[
@@ -43,6 +43,7 @@ class PickFlashcard:
         pick_flashcard = Container(
             content=Column(
                 controls=[
+                    ElevatedButton(text='Back', on_click=lambda _: self.page.go("/")),
                     Container(height=20),
                     Text(value='What would you like to revise?', size=31, weight='bold'),
                     Container(height=20),
@@ -63,6 +64,12 @@ class PickFlashcard:
             padding=padding.only(top=50, left=20, right=20, bottom=5),
             content=pick_flashcard,
         )
+    
+    def select_flashcard(self, name):
+        global selected_flashcard
+        selected_flashcard = name
+        print(selected_flashcard)
+        self.page.go("/view_flashcard")
 
     def view(self):
         return self.container
