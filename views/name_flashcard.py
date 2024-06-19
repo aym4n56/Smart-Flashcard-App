@@ -22,7 +22,7 @@ class NameFlashcard:
             variables.current_flashcard_name = current_flashcard_name  # Store in variable
             self.page.go("/flashcard_content")  # Navigate to next page or perform other actions
 
-        self.flashcard_name_input = TextField(label='Flashcard Name', width=300)
+        self.flashcard_name_input = TextField(label='Flashcard Name', width=400)
         
         name_flashcard = Container(
             content=Column(

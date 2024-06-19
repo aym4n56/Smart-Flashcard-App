@@ -19,6 +19,8 @@ class FlashcardContent:
 
         self.question_text_input = TextField(label='Question', width=300)
         self.answer_text_input = TextField(label='Answer', width=300)
+
+        
         
         def handle_done(e):
 
@@ -28,10 +30,10 @@ class FlashcardContent:
             self.conn.commit()
 
             for question, answer in variables.flashcards.items():
-                self.cursor.execute("INSERT INTO question (flashcard_id, question_text) VALUES (?, ?)", (flashcard_id, self.question_text_input.value))
+                self.cursor.execute("INSERT INTO question (flashcard_id, question_text) VALUES (?, ?)", (flashcard_id, question))
                 question_id = self.cursor.lastrowid
                 
-                self.cursor.execute("INSERT INTO correct_answer (question_id, answer_text) VALUES (?, ?)", (question_id, self.answer_text_input.value))
+                self.cursor.execute("INSERT INTO correct_answer (question_id, answer_text) VALUES (?, ?)", (question_id, answer))
             self.conn.commit()
 
             page.go("/")  # Assuming this navigates back to the previous page
@@ -61,9 +63,17 @@ class FlashcardContent:
         )
 
     def submit_content(self, e):
-        print(variables.current_flashcard_name)
-        variables.flashcards[self.question_text_input.value.strip()] = self.answer_text_input.value.strip()
-        print(variables.flashcards)
+        question = self.question_text_input.value
+        answer = self.answer_text_input.value
+        if question and answer:
+            print(variables.current_flashcard_name)
+            variables.flashcards[question] = answer
+            print(variables.flashcards)
+        else:
+            print("empty fields")
+        self.question_text_input.value = ""
+        self.answer_text_input.value = ""
+        self.page.update()
 
     def view(self):
         return self.container
