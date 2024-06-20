@@ -3,3 +3,4 @@ flashcards = {}
 selected_flashcard = ""
 current_flashcard_id = ""
 question_text = ""
+current_question_id = ""
