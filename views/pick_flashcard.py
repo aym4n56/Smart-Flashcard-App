@@ -74,8 +74,19 @@ class PickFlashcard:
         if result:
             variables.current_flashcard_id = result[0]
             print(f"Flashcard ID: {variables.current_flashcard_id}")
+            
+            self.cursor.execute("SELECT question_text FROM question WHERE flashcard_id = ?", (variables.current_flashcard_id,))
+            result = self.cursor.fetchone()
+            
+            if result:
+                variables.question_text = result[0]
+                print(variables.question_text)
+            else:
+                print("no question")
+        
         else:
             print("Flashcard not found or result is empty")
+
 
     def view(self):
         return self.container

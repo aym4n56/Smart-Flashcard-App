@@ -16,12 +16,6 @@ class ViewFlashcard:
         BG = '#041995'
         FG = '#3450a1'
 
-        flashcard_id = variables.current_flashcard_id
-        # Next steps use flashcard id to display first questions
-        # Add check button that checks with correct_answer
-        # Make next button display next question until no questions left
-
-
         self.user_answer_input = TextField(label='Answer', width=400)
         
         view_flashcard = Container(
@@ -29,7 +23,7 @@ class ViewFlashcard:
                 controls=[
                     ElevatedButton(text='Back', on_click=lambda _: self.page.go("/pick_flashcard")),
                     Container(height=20),
-                    Text(value='This is a sample question what is a question?', size=20, weight='bold'),
+                    Text(value=variables.question_text, size=20, weight='bold'),
                     Container(height=20),
                     self.user_answer_input,
                     ElevatedButton(text='Next'),
@@ -45,6 +39,7 @@ class ViewFlashcard:
             padding=padding.only(top=50, left=20, right=20, bottom=5),
             content=view_flashcard,
         )
+            
 
     def view(self):
         return self.container
