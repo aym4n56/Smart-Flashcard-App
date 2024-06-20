@@ -14,12 +14,14 @@ class Router:
             "/": Home(page).view(),
             "/name_flashcard": NameFlashcard(page).view(),
             "/flashcard_content": FlashcardContent(page).view(),
-            "/pick_flashcard": PickFlashcard(page).view(),
-            "/view_flashcard": ViewFlashcard(page).view()
+            "/pick_flashcard": PickFlashcard(page).view()
         }
         self.body = ft.Container(content=self.routes['/'])
 
     def route_change(self, route):
-        self.body.content = self.routes[route.route]
+        if route.route == '/view_flashcard':
+            self.routes['/view_flashcard'] = ViewFlashcard(self.page).view()
+        
+        self.body.content = self.routes.get(route.route, self.routes['/'])
         self.body.update()
         return False

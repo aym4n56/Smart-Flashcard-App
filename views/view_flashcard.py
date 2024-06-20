@@ -17,13 +17,14 @@ class ViewFlashcard:
         FG = '#3450a1'
 
         self.user_answer_input = TextField(label='Answer', width=400)
+        self.question_text = variables.question_text
         
         view_flashcard = Container(
             content=Column(
                 controls=[
                     ElevatedButton(text='Back', on_click=lambda _: self.page.go("/pick_flashcard")),
                     Container(height=20),
-                    Text(value=variables.question_text, size=20, weight='bold'),
+                    Text(value=self.question_text, size=20, weight='bold'),
                     Container(height=20),
                     self.user_answer_input,
                     ElevatedButton(text='Next'),
@@ -38,8 +39,7 @@ class ViewFlashcard:
             border_radius=35,
             padding=padding.only(top=50, left=20, right=20, bottom=5),
             content=view_flashcard,
-        )
-            
+        )            
 
     def view(self):
         return self.container

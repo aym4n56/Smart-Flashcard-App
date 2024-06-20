@@ -67,25 +67,25 @@ class PickFlashcard:
     def select_flashcard(self, name):
         variables.selected_flashcard = name
         print(variables.selected_flashcard)
-        self.page.go("/view_flashcard")
         self.cursor.execute("SELECT flashcard_id FROM flashcard WHERE flashcard_name = ?", (variables.selected_flashcard,))
-        result = self.cursor.fetchone()  # Fetches the first row of the result
-
+        result = self.cursor.fetchone()
         if result:
             variables.current_flashcard_id = result[0]
             print(f"Flashcard ID: {variables.current_flashcard_id}")
             
             self.cursor.execute("SELECT question_text FROM question WHERE flashcard_id = ?", (variables.current_flashcard_id,))
-            result = self.cursor.fetchone()
+            question_result = self.cursor.fetchone()
             
             if result:
-                variables.question_text = result[0]
+                variables.question_text = question_result[0]
                 print(variables.question_text)
             else:
                 print("no question")
         
         else:
             print("Flashcard not found or result is empty")
+        self.page.update()
+        self.page.go("/view_flashcard")
 
 
     def view(self):
