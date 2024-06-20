@@ -21,6 +21,7 @@ class Router:
     def route_change(self, route):
         if route.route == '/view_flashcard':
             self.routes['/view_flashcard'] = ViewFlashcard(self.page).view()
+            self.page.update()
         
         self.body.content = self.routes.get(route.route, self.routes['/'])
         self.body.update()
